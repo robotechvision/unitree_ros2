@@ -45,7 +45,9 @@ ament_target_dependencies(unitree_ros2 ${DEPENDENCY_LIST})
 
 install(TARGETS 
         unitree_ros2
-        DESTINATION)
+  ARCHIVE DESTINATION lib
+  LIBRARY DESTINATION lib
+  RUNTIME DESTINATION bin)
 
 install(DIRECTORY include/ DESTINATION include/)
 install(DIRECTORY third_party/include/ DESTINATION include/)
@@ -69,4 +71,10 @@ ament_export_libraries(
   unitree_ros2
 )
 
+install(DIRECTORY
+  description
+  launch
+  rviz
+  DESTINATION share/${PROJECT_NAME}/
+)
 ament_package()
