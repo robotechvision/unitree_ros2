@@ -26,6 +26,14 @@ find_package(rosidl_default_generators REQUIRED)
 find_package(rosidl_generator_dds_idl REQUIRED)
 
 rosidl_generate_interfaces(${PROJECT_NAME}
+        "msg/Request.msg"
+        "msg/RequestHeader.msg"
+        "msg/RequestIdentity.msg"
+        "msg/RequestLease.msg"
+        "msg/RequestPolicy.msg"
+        "msg/Response.msg"
+        "msg/ResponseHeader.msg"
+        "msg/ResponseStatus.msg"
         "srv/Generic.srv"
 
   DEPENDENCIES std_msgs

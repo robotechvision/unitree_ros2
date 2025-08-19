@@ -37,6 +37,8 @@ rosidl_generate_interfaces(${PROJECT_NAME}
 	"msg/MotorCmd.msg"
 	"msg/MotorState.msg"
 	"msg/PressSensorState.msg"
+  "msg/SportModeState.msg"
+  "msg/TimeSpec.msg"
   DEPENDENCIES geometry_msgs
 )
 

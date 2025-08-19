@@ -53,6 +53,7 @@ add_executable(go2_read_low_state src/go2/read_low_state.cpp)
 add_executable(go2_read_motion_state src/go2/read_motion_state.cpp)
 add_executable(go2_read_wireless_controller src/go2/read_wireless_controller.cpp)
 add_executable(go2_sport_client_example src/go2/sport_client_example.cpp)
+add_executable(g1_gpt_api_example src/g1/audioclient/g1_gpt_api_example.cpp)
 #add_executable(record_bag src/record_bag.cpp)
 
 ament_target_dependencies(h1_2_low_level_ctrl ${DEPENDENCY_LIST})
@@ -68,6 +69,7 @@ ament_target_dependencies(go2_read_low_state ${DEPENDENCY_LIST})
 ament_target_dependencies(go2_read_motion_state ${DEPENDENCY_LIST})
 ament_target_dependencies(go2_read_wireless_controller ${DEPENDENCY_LIST})
 ament_target_dependencies(go2_sport_client_example ${DEPENDENCY_LIST})
+ament_target_dependencies(g1_gpt_api_example ${DEPENDENCY_LIST})
 #ament_target_dependencies(record_bag ${DEPENDENCY_LIST})
 
 install(TARGETS 
@@ -84,7 +86,8 @@ install(TARGETS
         go2_read_motion_state
         go2_read_wireless_controller
         go2_sport_client_example
-        DESTINATION)
+        g1_gpt_api_example
+        DESTINATION lib/${PROJECT_NAME})
 
 
 if(BUILD_TESTING)
