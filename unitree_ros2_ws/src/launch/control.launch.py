@@ -26,11 +26,17 @@ from launch.substitution import Substitution
 
 def generate_launch_description():
     pkg_share = get_package_share_directory('unitree_ros2')
-    use_sim_time = LaunchConfiguration('use_sim_time', default='false')
+    use_sim_time = LaunchConfiguration('use_sim_time')
+    simulation = LaunchConfiguration('simulation')
 
     return LaunchDescription([
         DeclareLaunchArgument(
             'use_sim_time',
+            default_value='false',
+            description='Use simulation (Gazebo) clock if true'),
+
+        DeclareLaunchArgument(
+            'simulation',
             default_value='false',
             description='Use simulation (Gazebo) clock if true'),
 
@@ -42,5 +48,32 @@ def generate_launch_description():
             parameters=[{
                 'use_sim_time': use_sim_time,
                 }]
+        ),
+
+        Node(
+            package='rtv_deeplab_detection',
+            executable='object_detection',
+            name='object_detection',
+            output='screen',
+            parameters=[{
+                'use_sim_time': use_sim_time,
+                'use_cpu': simulation,  # our graphic cards are not powerful enough to run GPU inference alongside simulation
+                }],
+            remappings=[('/camera/image_raw/compressed', '/realsense/color/image_raw/compressed')]
+        ),
+
+        Node(
+            package='rtv_image_proc',
+            executable='image_compression',
+            name='image_compression',
+            output='screen',
+            parameters=[{
+                'use_sim_time': use_sim_time,
+            }],
+            remappings=[
+                ('input', '/realsense/color/image_raw_noncompressed'),
+                ('output', '/realsense/color/image_raw'),
+                ('output/compressed', '/realsense/color/image_raw/compressed')
+            ]
         ),
     ])
