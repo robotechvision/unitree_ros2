@@ -63,6 +63,30 @@ def generate_launch_description():
         ),
 
         Node(
+            package='rtv_object_detection',
+            executable='object_3d_info_assignment',
+            name='object_3d_info_assignment',
+            output='screen',
+            parameters=[{
+                'use_sim_time': use_sim_time,
+            }],
+        ),
+
+        # # debug
+        # Node(
+        #     package='rtv_object_detection',
+        #     executable='project_point_cloud_on_image',
+        #     name='project_point_cloud_on_image',
+        #     output='screen',
+        #     parameters=[{
+        #         'use_sim_time': use_sim_time,
+        #         'leaf_size': 0.08,
+        #     }],
+        #     remappings=[('image/compressed', '/realsense/color/image_raw/compressed'),
+        #                 ('point_cloud', '/stereo_points')],
+        # ),
+
+        Node(
             package='rtv_image_proc',
             executable='image_compression',
             name='image_compression',
