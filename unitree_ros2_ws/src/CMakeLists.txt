@@ -71,9 +71,15 @@ ament_export_libraries(
   unitree_ros2
 )
 
+install(PROGRAMS
+  scripts/zenoh.bash
+  DESTINATION lib/${PROJECT_NAME}
+)
+
 install(DIRECTORY
   description
   launch
+  scripts
   rviz
   params
   DESTINATION share/${PROJECT_NAME}/
