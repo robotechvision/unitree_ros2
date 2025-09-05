@@ -5,7 +5,7 @@ import os
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument, LogInfo
-from launch.substitutions import Command, LaunchConfiguration, EnvironmentVariable
+from launch.substitutions import Command, LaunchConfiguration, EnvironmentVariable, PythonExpression
 from launch_ros.actions import Node
 from launch_ros.parameter_descriptions import ParameterValue
 # from rtv_launch.no_shared_memory_group import NoSharedMemoryGroupAction
@@ -52,7 +52,7 @@ def generate_launch_description():
 
         Node(
             package='rtv_deeplab_detection',
-            executable='object_detection',
+            executable='object_detection_torch',
             name='object_detection',
             output='screen',
             parameters=[{
@@ -67,7 +67,8 @@ def generate_launch_description():
             executable='object_3d_info_assignment',
             name='object_3d_info_assignment',
             output='screen',
-            parameters=[{
+            parameters=[[pkg_share, os.path.sep, 'params', os.path.sep,
+                         PythonExpression(['"simulation.yaml" if "', simulation, '".lower() == "true" else "realworld.yaml"'])], {
                 'use_sim_time': use_sim_time,
             }],
         ),
