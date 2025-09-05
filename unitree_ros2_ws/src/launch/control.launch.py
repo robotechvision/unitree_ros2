@@ -59,7 +59,7 @@ def generate_launch_description():
                 'use_sim_time': use_sim_time,
                 'use_cpu': simulation,  # our graphic cards are not powerful enough to run GPU inference alongside simulation
                 }],
-            remappings=[('/camera/image_raw/compressed', '/realsense/color/image_raw/compressed')]
+            remappings=[('/camera/image_raw/compressed', '/camera/color/image_raw/compressed')]
         ),
 
         Node(
@@ -83,7 +83,7 @@ def generate_launch_description():
         #         'use_sim_time': use_sim_time,
         #         'leaf_size': 0.08,
         #     }],
-        #     remappings=[('image/compressed', '/realsense/color/image_raw/compressed'),
+        #     remappings=[('image/compressed', '/camera/color/image_raw/compressed'),
         #                 ('point_cloud', '/stereo_points')],
         # ),
 
@@ -96,9 +96,9 @@ def generate_launch_description():
                 'use_sim_time': use_sim_time,
             }],
             remappings=[
-                ('input', '/realsense/color/image_raw_noncompressed'),
-                ('output', '/realsense/color/image_raw'),
-                ('output/compressed', '/realsense/color/image_raw/compressed')
+                ('input', '/camera/color/image_raw_noncompressed'),
+                ('output', '/camera/color/image_raw'),
+                ('output/compressed', '/camera/color/image_raw/compressed')
             ]
         ),
     ])
