@@ -107,6 +107,7 @@ def generate_launch_description():
             parameters=[{
                 'use_sim_time': use_sim_time,
                 'source_list': ['lowstate_joint_states', 'hand_joint_states'],
+                'rate': 100,
             }]),
         Node(
             package='rtv_unitree_lowlevel',

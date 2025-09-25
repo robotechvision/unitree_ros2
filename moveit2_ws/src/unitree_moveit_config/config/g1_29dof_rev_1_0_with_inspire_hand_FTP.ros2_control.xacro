@@ -10,6 +10,27 @@
                 <param name="joint_states_topic">/lowstate_joint_states</param>
             </hardware>
 
+            <joint name="waist_yaw_joint">
+                <command_interface name="position"/>
+                <state_interface name="position">
+                    <!-- <param name="initial_value">${initial_positions['right_shoulder_pitch_joint']}</param> -->
+                </state_interface>
+                <state_interface name="velocity"/>
+            </joint>
+            <joint name="waist_roll_joint">
+                <command_interface name="position"/>
+                <state_interface name="position">
+                    <!-- <param name="initial_value">${initial_positions['right_shoulder_pitch_joint']}</param> -->
+                </state_interface>
+                <state_interface name="velocity"/>
+            </joint>
+            <joint name="waist_pitch_joint">
+                <command_interface name="position"/>
+                <state_interface name="position">
+                    <!-- <param name="initial_value">${initial_positions['right_shoulder_pitch_joint']}</param> -->
+                </state_interface>
+                <state_interface name="velocity"/>
+            </joint>
             <joint name="left_shoulder_pitch_joint">
                 <command_interface name="position"/>
                 <state_interface name="position">
