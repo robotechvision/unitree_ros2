@@ -73,6 +73,7 @@ ament_export_libraries(
 
 install(PROGRAMS
   scripts/zenoh.bash
+  scripts/zenoh2.bash
   DESTINATION lib/${PROJECT_NAME}
 )
 

@@ -59,7 +59,7 @@ def generate_launch_description():
                 'use_sim_time': use_sim_time,
                 'use_cpu': simulation,  # our graphic cards are not powerful enough to run GPU inference alongside simulation
                 }],
-            remappings=[('/camera/image_raw/compressed', '/realsense/color/image_raw/compressed')]
+            remappings=[('/camera/image_raw/compressed', '/camera/d435/color/image_raw/compressed')]
         ),
 
         Node(
@@ -71,6 +71,10 @@ def generate_launch_description():
                          PythonExpression(['"simulation.yaml" if "', simulation, '".lower() == "true" else "realworld.yaml"'])], {
                 'use_sim_time': use_sim_time,
             }],
+            remappings=[
+                ('/camera/camera/depth/color/points', '/camera/d435/depth/color/points'),
+                ('camera_info', '/camera/d435/color/camera_info'),
+            ],
         ),
 
         # # debug
@@ -96,9 +100,9 @@ def generate_launch_description():
                 'use_sim_time': use_sim_time,
             }],
             remappings=[
-                ('input', '/realsense/color/image_raw_noncompressed'),
-                ('output', '/realsense/color/image_raw'),
-                ('output/compressed', '/realsense/color/image_raw/compressed')
+                ('input', '/camera/d435/color/image_raw_noncompressed'),
+                ('output', '/camera/d435/color/image_raw'),
+                ('output/compressed', '/camera/d435/color/image_raw/compressed')
             ]
         ),
     ])

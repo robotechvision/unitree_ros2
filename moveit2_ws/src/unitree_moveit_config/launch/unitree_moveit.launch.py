@@ -86,12 +86,12 @@ def generate_launch_description():
                 {"execute_start_state": False},
             ],
         ),
-        Node(
-            package="rviz2",
-            executable="rviz2",
-            name="rviz2",
-            output="screen",
-            arguments=["-d", os.path.join(configs_path, "moveit.rviz")],
-            parameters=[robot_description, robot_description_semantic],
-        ),
+        # Node(
+        #     package="rviz2",
+        #     executable="rviz2",
+        #     name="rviz2",
+        #     output="screen",
+        #     arguments=["-d", os.path.join(configs_path, "moveit.rviz")],
+        #     parameters=[robot_description, robot_description_semantic],
+        # ),
     ])
