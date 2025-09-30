@@ -4,6 +4,8 @@ import yaml # type: ignore
 import xacro  # type: ignore
 
 from launch import LaunchDescription
+from launch.actions import DeclareLaunchArgument
+from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
 from ament_index_python.packages import get_package_share_directory
 from pathlib import Path
@@ -41,9 +43,13 @@ def generate_launch_description():
     joint_limits_yaml = load_yaml(configs_path, "joint_limits.yaml")
     kinematics_yaml = load_yaml(configs_path, "kinematics.yaml") 
     ros2_controllers_yaml = os.path.join(configs_path, "ros2_controllers.yaml")
-    
+
+    use_sim_time = LaunchConfiguration('use_sim_time')
+
     ompl_planning_pipeline_config = {
         "move_group": {
+            # "planning_plugin": "stomp_moveit/StompPlanner",
+            # "planning_plugin": "chomp_interface/CHOMPPlanner",
             "planning_plugin": "ompl_interface/OMPLPlanner",
             "request_adapters": """default_planner_request_adapters/AddTimeOptimalParameterization default_planner_request_adapters/LimitMaxCartesianLinkSpeed default_planner_request_adapters/FixWorkspaceBounds default_planner_request_adapters/FixStartStateBounds default_planner_request_adapters/FixStartStateCollision default_planner_request_adapters/FixStartStatePathConstraints stomp_moveit/StompSmoothingAdapter""",
             "start_state_max_bounds_error": 0.1,
@@ -56,10 +62,15 @@ def generate_launch_description():
     ompl_planning_pipeline_config["move_group"].update(ompl_planning_yaml)
 
     return LaunchDescription([
+        DeclareLaunchArgument(
+            'use_sim_time',
+            default_value='false',
+            description='Use simulation (Gazebo) clock if true'),
+
         Node(
             package='controller_manager',
             executable='ros2_control_node',
-            parameters=[robot_description, ros2_controllers_yaml],
+            parameters=[robot_description, ros2_controllers_yaml, {'use_sim_time': use_sim_time}],
             output='screen'
         ),
         Node(
@@ -70,6 +81,7 @@ def generate_launch_description():
                        'left_hand_controller',
                        'right_hand_controller'],
             output='screen',
+            parameters=[{'use_sim_time': use_sim_time}],
         ),
         Node(
             package="moveit_ros_move_group",
@@ -83,8 +95,24 @@ def generate_launch_description():
                 joint_limits_yaml,
                 ompl_planning_pipeline_config,
                 moveit_controllers,
-                {"execute_start_state": False},
+                {"execute_start_state": False,
+                 'use_sim_time': use_sim_time},
             ],
+        ),
+        Node(
+            package='rtv_moveit_control',
+            executable='object_moveit_commander',
+            name='object_moveit_commander',
+            output='screen',
+            parameters=[robot_description,
+                        robot_description_semantic,
+                        kinematics_yaml,
+                        joint_limits_yaml,
+                        ompl_planning_pipeline_config,
+                        {
+                            'use_sim_time': use_sim_time,
+                        }],
+            # prefix=['gnome-terminal -- gdb -ex run --args'],
         ),
         # Node(
         #     package="rviz2",
@@ -92,6 +120,6 @@ def generate_launch_description():
         #     name="rviz2",
         #     output="screen",
         #     arguments=["-d", os.path.join(configs_path, "moveit.rviz")],
-        #     parameters=[robot_description, robot_description_semantic],
+        #     parameters=[robot_description, robot_description_semantic, {'use_sim_time': use_sim_time}],
         # ),
     ])

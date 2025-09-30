@@ -921,7 +921,7 @@ Visualization Manager:
       Value: true
       Visual Enabled: true
     - Class: rviz_default_plugins/Image
-      Enabled: false
+      Enabled: true
       Max Value: 1
       Median window: 5
       Min Value: 0
@@ -935,6 +935,7 @@ Visualization Manager:
         Value: /camera/d435/color/image_raw/compressed
       Value: false
     - Class: rviz_default_plugins/Image
+      Enabled: true
       Enabled: true
       Max Value: 1
       Median window: 5
@@ -1031,7 +1032,7 @@ Visualization Manager:
       Enabled: false
       Invert Rainbow: false
       Max Color: 255; 255; 255
-      Max Intensity: 2
+      Max Intensity: 5
       Min Color: 0; 0; 0
       Min Intensity: 0
       Name: PointCloud2

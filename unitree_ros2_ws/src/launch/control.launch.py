@@ -10,19 +10,25 @@ from launch_ros.actions import Node
 from launch_ros.parameter_descriptions import ParameterValue
 # from rtv_launch.no_shared_memory_group import NoSharedMemoryGroupAction
 
-############################################################################################################
-##### FileContent substitution not present in Humble, so we define it here (TODO: find a better place) #####
-############################################################################################################
+import xacro
+import yaml
 
-from typing import List
-from typing import Sequence
-from typing import Text
+def load_yaml(package_path, file_path):
+    absolute_file_path = os.path.join(package_path, file_path)
+    try:
+        with open(absolute_file_path, "r") as file:
+            return yaml.safe_load(file)
+    except EnvironmentError:
+        return None
 
-from launch.substitutions.substitution_failure import SubstitutionFailure
-from launch.frontend import expose_substitution
-from launch.launch_context import LaunchContext
-from launch.some_substitutions_type import SomeSubstitutionsType
-from launch.substitution import Substitution
+def load_xacro(package_path, file_path):
+    xacro_file = os.path.join(package_path, file_path)
+    return xacro.process_file(xacro_file).toxml()
+
+def load_file(package_path, file_path):
+    absolute_file_path = os.path.join(package_path, file_path)
+    with open(absolute_file_path, "r") as file:
+        return file.read()
 
 def generate_launch_description():
     pkg_share = get_package_share_directory('unitree_ros2')
@@ -47,6 +53,7 @@ def generate_launch_description():
             output='screen',
             parameters=[{
                 'use_sim_time': use_sim_time,
+                'simulation': simulation,
                 }]
         ),
 
@@ -87,7 +94,7 @@ def generate_launch_description():
         #         'use_sim_time': use_sim_time,
         #         'leaf_size': 0.08,
         #     }],
-        #     remappings=[('image/compressed', '/realsense/color/image_raw/compressed'),
+        #     remappings=[('image/compressed', '/camera/color/image_raw/compressed'),
         #                 ('point_cloud', '/stereo_points')],
         # ),
 
