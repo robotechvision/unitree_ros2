@@ -23,7 +23,8 @@ def generate_launch_description():
                 PythonLaunchDescriptionSource([os.path.join(get_package_share_directory('realsense2_camera'), 'launch'), '/rs_launch.py']),
                 launch_arguments={
                     'camera_namespace': 'camera',
-                    'camera_name' : 'd435'
+                    'camera_name' : 'd435',
+                    'rgb_camera.color_format': 'BGR8',
                 }.items()
             ),
             PopLaunchConfigurations(),
@@ -38,9 +39,12 @@ def generate_launch_description():
         ]),
         
         ExecuteProcess(
-            cmd=[
-                'ros2', 'param', 'set', '/camera/d435', 'pointcloud__neon_.enable', 'true'
-            ],
+            cmd=['ros2', 'param', 'set', '/camera/d435', 'pointcloud__neon_.enable', 'true'],
             output='screen'
-        )
+        ),
+        
+        ExecuteProcess(
+            cmd=['ros2', 'param', 'set', '/camera/d435', 'pointcloud__neon_.point_cloud_step', '5'],
+            output='screen'
+        ),
     ])
