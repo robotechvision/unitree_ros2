@@ -35,6 +35,20 @@ left_arm_controller:
       - velocity
 right_arm_controller:
   ros__parameters:
+    constraints:
+      goal_time: 10.0
+      stopped_velocity_tolerance: 1000.0  # ignoring velocity tolerance (TODO: check if velocity state bug occurs only in simulation)
+      goal:
+        waist_yaw_joint: 0.02
+        waist_roll_joint: 0.02
+        waist_pitch_joint: 0.02
+        right_shoulder_pitch_joint: 0.02
+        right_shoulder_roll_joint: 0.02
+        right_shoulder_yaw_joint: 0.02
+        right_elbow_joint: 0.02
+        right_wrist_roll_joint: 0.02
+        right_wrist_pitch_joint: 0.02
+        right_wrist_yaw_joint: 0.02
     joints:
       - waist_yaw_joint
       - waist_roll_joint
@@ -46,8 +60,21 @@ right_arm_controller:
       - right_wrist_roll_joint
       - right_wrist_pitch_joint
       - right_wrist_yaw_joint
+    gains:
+      # TODO: antiwindup
+      waist_yaw_joint: {p: 1.0, i: 0.5, d: 0.015, i_clamp: 0.5}
+      waist_roll_joint: {p: 1.0, i: 1.0, d: 0.015, i_clamp: 0.5}
+      waist_pitch_joint: {p: 1.0, i: 1.0, d: 0.015, i_clamp: 0.5}
+      right_shoulder_pitch_joint: {p: 1.0, i: 2.0, d: 0.015, i_clamp: 0.5}
+      right_shoulder_roll_joint: {p: 1.0, i: 2.0, d: 0.015, i_clamp: 0.5}
+      right_shoulder_yaw_joint: {p: 1.0, i: 2.0, d: 0.015, i_clamp: 0.5}
+      right_elbow_joint: {p: 1.0, i: 2.0, d: 0.015, i_clamp: 0.5}
+      right_wrist_roll_joint: {p: 1.0, i: 2.0, d: 0.015, i_clamp: 0.5}
+      right_wrist_pitch_joint: {p: 1.0, i: 2.0, d: 0.015, i_clamp: 0.5}
+      right_wrist_yaw_joint: {p: 1.0, i: 2.0, d: 0.015, i_clamp: 0.5}
     command_interfaces:
       - position
+      - effort
     state_interfaces:
       - position
       - velocity
@@ -65,6 +92,7 @@ left_hand_controller:
     state_interfaces:
       - position
       - velocity
+      - effort
 right_hand_controller:
   ros__parameters:
     joints:
@@ -79,3 +107,4 @@ right_hand_controller:
     state_interfaces:
       - position
       - velocity
+      - effort

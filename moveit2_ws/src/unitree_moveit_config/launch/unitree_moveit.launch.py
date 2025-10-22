@@ -48,12 +48,17 @@ def generate_launch_description():
 
     ompl_planning_pipeline_config = {
         "move_group": {
-            # "planning_plugin": "stomp_moveit/StompPlanner",
+            "planning_plugin": "stomp_moveit/StompPlanner",
             # "planning_plugin": "chomp_interface/CHOMPPlanner",
-            "planning_plugin": "ompl_interface/OMPLPlanner",
-            "request_adapters": """default_planner_request_adapters/AddTimeOptimalParameterization default_planner_request_adapters/LimitMaxCartesianLinkSpeed default_planner_request_adapters/FixWorkspaceBounds default_planner_request_adapters/FixStartStateBounds default_planner_request_adapters/FixStartStateCollision default_planner_request_adapters/FixStartStatePathConstraints stomp_moveit/StompSmoothingAdapter""",
+            # "planning_plugin": "ompl_interface/OMPLPlanner",
+            "request_adapters": """default_planner_request_adapters/AddTimeOptimalParameterization default_planner_request_adapters/LimitMaxCartesianLinkSpeed default_planner_request_adapters/FixWorkspaceBounds default_planner_request_adapters/FixStartStateBounds default_planner_request_adapters/FixStartStateCollision default_planner_request_adapters/FixStartStatePathConstraints""",
             "start_state_max_bounds_error": 0.1,
+            "path_marker_topic": "/stomp_markers",
         },
+        "stomp_moveit": {
+            "path_marker_topic": "/stomp_markers",
+        },
+        "path_marker_topic": "/stomp_markers",
         "planning_pipelines": ["move_group"],
         "default_planning_pipeline": "move_group",
         "capabilities": "move_group/MoveGroupMoveAction move_group/ExecuteTaskSolutionCapability",
@@ -71,7 +76,8 @@ def generate_launch_description():
             package='controller_manager',
             executable='ros2_control_node',
             parameters=[robot_description, ros2_controllers_yaml, {'use_sim_time': use_sim_time}],
-            output='screen'
+            output='screen',
+            # prefix=['gnome-terminal -- gdb -ex run --args'],
         ),
         Node(
             package='controller_manager',
@@ -98,6 +104,13 @@ def generate_launch_description():
                 {"execute_start_state": False,
                  'use_sim_time': use_sim_time},
             ],
+            # arguments = ['--ros-args',
+            #              '--log-level', 'moveit_constraint_samplers.constraint_sampler_manager:=debug',
+            #              '--log-level', 'moveit_constraint_samplers.default_constraint_samplers:=debug',
+            #              '--log-level', 'moveit_constraint_samplers.union_constraint_sampler:=debug',
+            #              '--log-level', 'stomp_moveit:=debug',
+            #              ],
+            # prefix=['gnome-terminal -- gdb -ex run --args'],
         ),
         Node(
             package='rtv_moveit_control',
