@@ -66,7 +66,7 @@ def generate_launch_description():
                 'use_sim_time': use_sim_time,
                 'use_cpu': simulation,  # our graphic cards are not powerful enough to run GPU inference alongside simulation
                 }],
-            remappings=[('/camera/image_raw/compressed', '/camera/camera/color/image_raw/compressed')]
+            remappings=[('/camera/image_raw/compressed', '/camera/d435/color/image_raw/compressed')]
         ),
 
         Node(
@@ -78,34 +78,42 @@ def generate_launch_description():
                          PythonExpression(['"simulation.yaml" if "', simulation, '".lower() == "true" else "realworld.yaml"'])], {
                 'use_sim_time': use_sim_time,
             }],
+            remappings=[
+                ('/camera/camera/depth/color/points', '/camera/d435/depth/color/points'),
+                ('/camera/camera/color/camera_info', '/camera/d435/color/camera_info'),
+            ],
         ),
 
-        # # debug
-        # Node(
-        #     package='rtv_object_detection',
-        #     executable='project_point_cloud_on_image',
-        #     name='project_point_cloud_on_image',
-        #     output='screen',
-        #     parameters=[{
-        #         'use_sim_time': use_sim_time,
-        #         'leaf_size': 0.08,
-        #     }],
-        #     remappings=[('image/compressed', '/camera/color/image_raw/compressed'),
-        #                 ('point_cloud', '/stereo_points')],
-        # ),
-
+        # debug
         Node(
-            package='rtv_image_proc',
-            executable='image_compression',
-            name='image_compression',
+            package='rtv_object_detection',
+            executable='project_point_cloud_on_image',
+            name='project_point_cloud_on_image',
             output='screen',
             parameters=[{
                 'use_sim_time': use_sim_time,
+                'leaf_size': 0.08,
+                'input_image_transport': 'raw',
             }],
-            remappings=[
-                ('input', '/camera/camera/color/image_raw_noncompressed'),
-                ('output', '/camera/camera/color/image_raw'),
-                ('output/compressed', '/camera/camera/color/image_raw/compressed')
-            ]
+            remappings=[('image', '/camera/d435/color/image_raw'),
+                        ('image/compressed', '/camera/d435/color/image_raw/compressed'),
+                        ('camera_info', '/camera/d435/color/camera_info'),
+                        ('point_cloud', '/camera/d435/depth/color/points')],
+            # prefix=["gdb -ex run --args"]
         ),
+
+        # Node(
+        #     package='rtv_image_proc',
+        #     executable='image_compression',
+        #     name='image_compression',
+        #     output='screen',
+        #     parameters=[{
+        #         'use_sim_time': use_sim_time,
+        #     }],
+        #     remappings=[
+        #         ('input', '/camera/d435/color/image_raw_noncompressed'),
+        #         ('output', '/camera/d435/color/image_raw'),
+        #         ('output/compressed', '/camera/d435/color/image_raw/compressed')
+        #     ]
+        # ),
     ])

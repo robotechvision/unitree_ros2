@@ -127,12 +127,12 @@ def generate_launch_description():
                         }],
             # prefix=['gnome-terminal -- gdb -ex run --args'],
         ),
-        Node(
-            package="rviz2",
-            executable="rviz2",
-            name="rviz2",
-            output="screen",
-            arguments=["-d", os.path.join(configs_path, "moveit.rviz")],
-            parameters=[robot_description, robot_description_semantic, {'use_sim_time': use_sim_time}],
-        ),
+        # Node(
+        #     package="rviz2",
+        #     executable="rviz2",
+        #     name="rviz2",
+        #     output="screen",
+        #     arguments=["-d", os.path.join(configs_path, "moveit.rviz")],
+        #     parameters=[robot_description, robot_description_semantic, {'use_sim_time': use_sim_time}],
+        # ),
     ])

@@ -12,7 +12,6 @@
   <depend>unitree_go</depend>
   <depend>unitree_hg</depend>
   <depend>unitree_api</depend>
-  <depend>unitree_ros2</depend>
   <depend>rclcpp</depend>
   <depend>std_msgs</depend>
   <depend>rosbag2_cpp</depend>

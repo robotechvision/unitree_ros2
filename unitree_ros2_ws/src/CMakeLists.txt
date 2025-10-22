@@ -73,6 +73,8 @@ ament_export_libraries(
 
 install(PROGRAMS
   scripts/zenoh.bash
+  scripts/zenoh2.bash
+  scripts/bag_record.bash
   DESTINATION lib/${PROJECT_NAME}
 )
 
