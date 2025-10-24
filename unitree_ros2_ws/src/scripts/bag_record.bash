@@ -6,8 +6,13 @@ ros2 bag record --include-hidden-topics `ros2 topic list --include-hidden-topics
 ^/camera/d435/depth/camera_info$|\
 ^/camera/d435/depth/image_rect_raw$|\
 ^/camera/d435/depth/color/points$|\
-^/livox/lida$|\
+^/livox/lidar$|\
 ^/joint_states$|\
 ^/tf$|\
 ^/tf_static$|\ 
+^/ekf_odom/odom$|\ 
+^/unitree/odom$|\ 
+^/imu/data$|\ 
+^/site/odom$|\ 
+^/site/odom_recovarianced$|\ 
 ^$"`

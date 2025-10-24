@@ -1,0 +1,70 @@
+/**:
+  ros__parameters:
+    use_sim_time: false
+site:
+  scan_matcher:
+    ros__parameters:
+      output_frame_id: "laser_odom"
+      robot_frame_id: "pelvis"
+      gps_frame_id: "global"
+      registration_method: "NDT"
+      ndt_resolution: 0.5
+      ndt_num_threads: 4
+      trans_for_mapupdate: 1.5
+      vg_size_for_input: 0.1  # 0.2
+      vg_size_for_map: 0.1  # 0.2
+      use_min_max_filter: false
+      map_publish_period: 100.0
+      num_targeted_cloud: 20
+      set_initial_pose: true
+      initial_pose_x: 0.0
+      initial_pose_y: 0.0
+      initial_pose_z: 0.0
+      initial_pose_qx: 0.0
+      initial_pose_qy: 0.0
+      initial_pose_qz: 0.0
+      initial_pose_qw: 1.0
+      use_imu: false
+      use_odom: true
+      use_gps: false  # true
+      debug_flag: false
+      max_odom_inclination_deviation: 0.12
+      max_odom_angular_speed_deviation: 1.0
+      max_odom_linear_speed_deviation: 1.0
+
+  graph_based_slam:
+    ros__parameters:
+      robot_frame_id: "pelvis"
+      registration_method: "FastGICP"
+      score_ground_filter_max_intensity: 0.15
+      score_used_points_ratio: 0.92
+      use_scan_context: false  # true  # TODO: use up to first localization
+      input_submap_distance: 1.5  # should be same as scanmatcher's trans_for_mapupdate
+      scan_context_detection_threshold: 0.4  # 0.15
+      scan_context_use_intensity: true
+      rotation_epsilon: 2e-3
+      transformation_epsilon: 1e-7
+      num_threads: 4
+      max_num_iterations: 100  # 20
+      ndt_resolution: 5.0
+      ndt_num_threads: 2
+      voxel_leaf_size: 0.15  # 0.3
+      vgicp_resolution: 0.15  # 0.3
+      loop_detection_period: 1000
+      threshold_loop_closure_score: 0.1
+      distance_loop_closure: 15.0
+      range_of_searching_loop_closure: 2.5
+      loop_closure_search_consider_z: false
+      search_submap_num: 1
+      num_adjacent_pose_cnstraints: 1
+      rotation_weight_multiplier: 2.0
+      loop_closure_weight: 2.0
+      fix_weight_xy: 0.0  # 0.0001
+      fix_weight_z: 0.0
+      inclination_weight: 1.0
+      use_save_map_in_loop: false
+      loaded_map_static: true
+      publish_map_cloud: true
+      optimization_verbose: false
+      optimization_num_iterations: 100
+
