@@ -61,7 +61,8 @@ def generate_launch_description():
         "path_marker_topic": "/stomp_markers",
         "planning_pipelines": ["move_group"],
         "default_planning_pipeline": "move_group",
-        "capabilities": "move_group/MoveGroupMoveAction move_group/ExecuteTaskSolutionCapability",
+        "capabilities": "rtv_moveit_control/CartesianPathService",
+        "disable_capabilities": "move_group/MoveGroupCartesianPathService",
     }
     ompl_planning_yaml = load_yaml(configs_path, "ompl_planning.yaml")
     ompl_planning_pipeline_config["move_group"].update(ompl_planning_yaml)
