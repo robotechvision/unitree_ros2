@@ -38,17 +38,26 @@ right_arm_controller:
     constraints:
       goal_time: 10.0
       stopped_velocity_tolerance: 1000.0  # ignoring velocity tolerance (TODO: check if velocity state bug occurs only in simulation)
-      goal:
-        waist_yaw_joint: 0.02
-        waist_roll_joint: 0.02
-        waist_pitch_joint: 0.02
-        right_shoulder_pitch_joint: 0.02
-        right_shoulder_roll_joint: 0.02
-        right_shoulder_yaw_joint: 0.02
-        right_elbow_joint: 0.02
-        right_wrist_roll_joint: 0.02
-        right_wrist_pitch_joint: 0.02
-        right_wrist_yaw_joint: 0.02
+      waist_yaw_joint:
+        goal: 0.015
+      waist_roll_joint:
+        goal: 0.01
+      waist_pitch_joint:
+        goal: 0.01
+      right_shoulder_pitch_joint:
+        goal: 0.01
+      right_shoulder_roll_joint:
+        goal: 0.01
+      right_shoulder_yaw_joint:
+        goal: 0.01
+      right_elbow_joint:
+        goal: 0.01
+      right_wrist_roll_joint:
+        goal: 0.01
+      right_wrist_pitch_joint:
+        goal: 0.01
+      right_wrist_yaw_joint:
+        goal: 0.01
     joints:
       - waist_yaw_joint
       - waist_roll_joint

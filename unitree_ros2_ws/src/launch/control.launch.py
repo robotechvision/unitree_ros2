@@ -78,10 +78,6 @@ def generate_launch_description():
                          PythonExpression(['"simulation.yaml" if "', simulation, '".lower() == "true" else "realworld.yaml"'])], {
                 'use_sim_time': use_sim_time,
             }],
-            remappings=[
-                ('/camera/camera/depth/color/points', '/camera/d435/depth/color/points'),
-                ('/camera/camera/color/camera_info', '/camera/d435/color/camera_info'),
-            ],
         ),
 
         # debug
