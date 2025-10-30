@@ -13,6 +13,9 @@ ros2 bag record --include-hidden-topics `ros2 topic list --include-hidden-topics
 ^/ekf_odom/odom$|\ 
 ^/unitree/odom$|\ 
 ^/imu/data$|\ 
-^/site/odom$|\ 
-^/site/odom_recovarianced$|\ 
+^/graph_visualization$|\
+^/path$|\
+^/modified_path$|\
+^/modified_path$|\
+^/registration_cloud$|\
 ^$"`
