@@ -85,8 +85,8 @@ def generate_launch_description():
             name='ground_height_grid_interp',
             output='screen',
             parameters=[
+                os.path.join(pkg_share, 'params', 'site_params.yaml'),
                 {'use_sim_time': use_sim_time},
-                {'base_footprint_frame': 'pelvis'},        
             ],
             remappings=[
                 ('points_in', '/livox/lidar'),
