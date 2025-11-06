@@ -1,5 +1,0 @@
-[submodule "hardware_ws/src/livox_ros_driver2"]
-	path = hardware_ws/src/livox_ros_driver2
-	url = https://github.com/robotechvision/livox_ros_driver2.git
-	branch = rtv
-	update = merge

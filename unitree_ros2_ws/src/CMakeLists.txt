@@ -71,19 +71,4 @@ ament_export_libraries(
   unitree_ros2
 )
 
-install(PROGRAMS
-  scripts/zenoh.bash
-  scripts/zenoh2.bash
-  scripts/bag_record.bash
-  DESTINATION lib/${PROJECT_NAME}
-)
-
-install(DIRECTORY
-  description
-  launch
-  scripts
-  rviz
-  params
-  DESTINATION share/${PROJECT_NAME}/
-)
 ament_package()

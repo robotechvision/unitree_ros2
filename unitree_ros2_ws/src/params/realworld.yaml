@@ -1,6 +1,0 @@
-object_3d_info_assignment:
-  ros__parameters:
-    max_dimensions: [0.2, 0.2, 0.5]
-    workspace_limits: [0.0, 1.5, -0.3, 0.3, -0.3, 1.0]
-    ignore_objects_with_points_closer_than_frame_id: right_index_1
-    publish_only_nonempty_messages: true
